@@ -1,26 +1,29 @@
-**STAY SEEN** es un pequeño prototipo de sigilo desarrollado en Unity 6.
+# STAY SEEN
 
-El jugador controla a un guerrero que ha sido capturado y encerrado en una dungeon. Al despertar, descubre que está desarmado y debe encontrar una forma de escapar mientras evita ser descubierto por las criaturas que patrullan la zona.
+**STAY SEEN** is a small stealth prototype developed in Unity 6.
 
-El juego está centrado en la **IA de los enemigos**, especialmente en su percepción y comportamiento.
+The player takes control of a warrior who has been captured and imprisoned in a dungeon. Upon awakening, he discovers that he is unarmed and must find a way to escape while avoiding detection by the creatures patrolling the area.
 
-### GameLoop
+The game is centered around **enemy AI**, with a particular focus on their **perception and behavior**. For more information about the AI systems and their architecture, see [`AIArchitecture.md`](AIArchitecture.md).
+
+### Game Loop
+
 ```mermaid
 flowchart LR
-    A([INICIO]) --> B[EXPLORAR]
-    B --> C[EVITAR ENEMIGOS]
-    C --> D{¿Detectado?}
+    A([START]) --> B[EXPLORE]
+    B --> C[AVOID ENEMIES]
+    C --> D{Detected?}
 
-    D -->|No| E[AVANZAR]
-    E --> F{¿Salida encontrada?}
+    D -->|No| E[PROGRESS]
+    E --> F{Exit Found?}
 
     F -->|No| B
-    F -->|Sí| G([ESCAPE])
+    F -->|Yes| G([ESCAPE])
 
-    D -->|Sí| H[HUIR / ESCONDERSE]
-    H --> I{¿Perdió al jugador?}
+    D -->|Yes| H[RUN / HIDE]
+    H --> I{Lost the Player?}
 
-    I -->|Sí| B
-    I -->|No| J([CAPTURADO])
+    I -->|Yes| B
+    I -->|No| J([CAPTURED])
     J --> B
 ```
