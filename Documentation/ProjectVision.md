@@ -1,8 +1,11 @@
-**BLIND SPOT** is primarily an AI programming project.
+**Unity 6 · 3D · AI Programming**
+---
 
-The game provides the necessary context to test and demonstrate the developed systems, but the main objective is to showcase the implementation of perception, memory, decision-making, navigation, and behavioral systems.
+**BLIND SPOT** is an infiltration prototype developed in Unity 6, whose primary objective is to demonstrate an AI system based on a **Finite State Machine (FSM)**, perception, and navigation.
 
-The gameplay is deliberately kept limited to allow development to focus on these technical systems.
+AI is the core of the project. The gameplay exists to put the player in situations where they can observe and trigger different enemy behaviors.
+
+The project will have a **WebGL** version so it can be played directly in the browser.
 
 ### Technical Objectives
 ```
