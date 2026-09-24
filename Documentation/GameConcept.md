@@ -9,21 +9,20 @@ The game is centered around **enemy AI**, with a particular focus on their **per
 ### Game Loop
 
 ```mermaid
-flowchart LR
-    A([START]) --> B[EXPLORE]
-    B --> C[AVOID ENEMIES]
-    C --> D{Detected?}
-
-    D -->|No| E[PROGRESS]
-    E --> F{Exit Found?}
-
-    F -->|No| B
-    F -->|Yes| G([ESCAPE])
-
-    D -->|Yes| H[RUN / HIDE]
-    H --> I{Lost the Player?}
-
-    I -->|Yes| B
-    I -->|No| J([CAPTURED])
-    J --> B
+flowchart BT
+    n1([START]) --> n2[Explore]
+    n2 --> n3[Avoid Enemies]
+    n3 --> n4{Detected?}
+    n4 --> n5[/NO/]
+    n4 --> n6[\YES\]
+    n5 --> n7[Progress]
+    n6 --> n8[Run or Hide]
+    n7 --> n9{Exit Found?}
+    n8 --> n10{Lost the Player?}
+    n9 --> n11[/NO/]
+    n9 --> n12[\YES\]
+    n11 --> n2
+    n10 --> n13[/NO/]
+    n10 --> n14[\YES\]
+    n12 --> n15([EXIT])
 ```
