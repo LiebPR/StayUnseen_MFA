@@ -9,20 +9,32 @@ The game is centered around **enemy AI**, with a particular focus on their **per
 ### Game Loop
 
 ```mermaid
-flowchart BT
-    n1([START]) --> n2[Explore]
-    n2 --> n3[Avoid Enemies]
-    n3 --> n4{Detected?}
-    n4 --> n5[/NO/]
-    n4 --> n6[\YES\]
-    n5 --> n7[Progress]
-    n6 --> n8[Run or Hide]
-    n7 --> n9{Exit Found?}
-    n8 --> n10{Lost the Player?}
-    n9 --> n11[/NO/]
-    n9 --> n12[\YES\]
-    n11 --> n2
-    n10 --> n13[/NO/]
-    n10 --> n14[\YES\]
-    n12 --> n15([EXIT])
+flowchart TD
+    subgraph S1 ["1. Gameplay State: Unaware (Explore) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
+        direction LR
+        START([START]) --> Explore[Explore] --> Avoid[Avoid Enemies]
+    end
+
+    subgraph S2 ["2. Encounter & Detection Phase &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
+        Detected{Detected?}
+    end
+
+    subgraph S3 ["3. Progress & Success Path &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
+        Progress[Progress] --> ExitFound{Exit Found?}
+    end
+
+    subgraph S4 ["4. Engagement & Escape Path &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]
+        RunHide[Run or Hide] --> LostPlayer{Lost the Player?}
+        LostPlayer -- NO --> RunHide
+    end
+
+    EXIT([EXIT])
+
+    %% Conexiones
+    Avoid --> Detected
+    Detected -- NO --> Progress
+    ExitFound -- YES --> EXIT
+    ExitFound -- NO --> Explore
+    Detected -- YES --> RunHide
+    LostPlayer -- YES --> Explore
 ```
