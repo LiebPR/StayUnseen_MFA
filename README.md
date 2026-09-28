@@ -20,3 +20,7 @@ Technical objectives
 ├── Gameplay ↔ AI Communication
 └── Debugging
 ```
+Learn More
+- To learn more about the AI, see [AI Architecture](Documentation/AIArchitecture.md/)
+- To learn more about the game concept, see [Game Concept](Documentation/GameConcept.md/)
+- To learn more about additional game systems, see [Game Systems](Documentation/GameSystems.md)
