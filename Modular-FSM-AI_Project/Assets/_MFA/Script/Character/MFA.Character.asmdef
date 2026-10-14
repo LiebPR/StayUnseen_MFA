@@ -1,0 +1,17 @@
+{
+    "name": "MFA.Character",
+    "rootNamespace": "MFA.Character",
+    "references": [
+        "GUID:0d17f1550a0ed824baf9211c1206e485",
+        "GUID:b1c68a35de60adc4baf34b4162ea63aa"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

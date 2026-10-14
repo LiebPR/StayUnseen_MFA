@@ -9,8 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9089856653788202020}
+  - component: {fileID: 6912836502094413285}
   - component: {fileID: 6623490119864458776}
   - component: {fileID: 5347457658357818321}
+  - component: {fileID: 6316993629317099400}
   m_Layer: 0
   m_Name: PF_Player_Knight
   m_TagString: Untagged
@@ -34,6 +36,18 @@ Transform:
   - {fileID: 6568160682365431240}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6912836502094413285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3558701673231399321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3782f9692ceda4b4dbbaa45420b58d2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MFA.Character::MFA.Character.PlayerController
 --- !u!54 &6623490119864458776
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -84,6 +98,36 @@ CapsuleCollider:
   m_Height: 2.454899
   m_Direction: 1
   m_Center: {x: 0, y: 1.1843599, z: 0}
+--- !u!114 &6316993629317099400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3558701673231399321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: fabf6692b24e3c74eb80c1189d8c1059, type: 3}
+  m_NotificationBehavior: 3
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Gameplay
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1001 &6677837873047751203
 PrefabInstance:
   m_ObjectHideFlags: 0
