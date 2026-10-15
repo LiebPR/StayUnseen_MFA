@@ -4,6 +4,9 @@ namespace MFA.Character
 
     public class PlayerController : MonoBehaviour
     {
+        [SerializeField] CharacterSO settings;
+        [SerializeField] Transform cameraTransform;
+
         #region References
         PlayerContext ctx;
         #endregion
@@ -16,9 +19,15 @@ namespace MFA.Character
             rb.useGravity = true;
             rb.interpolation = RigidbodyInterpolation.Interpolate;
 
-            //---- Instanciamos el Installer y el CTX ----------------------------------
+            //---- Aseguramos la cámara ---------------------------
+            if (cameraTransform == null && Camera.main != null)
+            {
+                cameraTransform = Camera.main.transform;
+            }
+
+            //---- Instanciamos el Installer y el CTX -------------
             PlayerInstaller installer = new PlayerInstaller();
-            ctx = installer.Install(rb);
+            ctx = installer.Install(rb, cameraTransform, settings);
 
         }
 

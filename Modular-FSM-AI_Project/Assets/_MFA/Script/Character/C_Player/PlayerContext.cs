@@ -7,6 +7,7 @@ namespace MFA.Character
     using UnityEngine;
     //---- MFA -------------------------
     using MFA.Core.FSM;
+    using MFA.Core.Physics;
     using MFA.Inputs;
     #endregion
 
@@ -21,10 +22,20 @@ namespace MFA.Character
         /// Obtiene el componente <see cref="UnityEngine.Rigidbody"/> asociado al personaje para la simulación física.
         /// </summary>
         public Rigidbody Rigidbody { get; }
+        public Transform CameraTransform { get; }
 
         //---- Systems ---------------------
         public StateMachine FSM { get; }
         public InputReader Input { get; }
+
+        public PhysicsSystem Physics {  get; }
+
+        //---- Settings ------------------------------
+        public CharacterSO Settings { get; }
+
+        //---- Instancias Unicas Estados -------------
+        public IState IdleState { get; set; }
+        public IState MoveState { get; set; }
         #endregion
 
         /// <summary>
@@ -33,13 +44,19 @@ namespace MFA.Character
         public PlayerContext
         (
             Rigidbody rigidbody,
+            Transform cameraTransform,
+            CharacterSO settings,
             StateMachine fsm,
-            InputReader input
+            InputReader input,
+            PhysicsSystem physics
         )
         {
             Rigidbody = rigidbody;
+            CameraTransform = cameraTransform;
+            Settings = settings;
             FSM = fsm;
             Input = input;
+            Physics = physics;
         }
 
         /// <summary>

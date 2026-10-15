@@ -48,6 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3782f9692ceda4b4dbbaa45420b58d2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: MFA.Character::MFA.Character.PlayerController
+  settings: {fileID: 11400000, guid: c71e7498233d1114bb9d0480be06f7ab, type: 2}
+  cameraTransform: {fileID: 0}
 --- !u!54 &6623490119864458776
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -203,7 +205,7 @@ Animator:
   m_GameObject: {fileID: 5795319063947540338}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6153879d5eccd3f4b8e0978fd3331f54, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
