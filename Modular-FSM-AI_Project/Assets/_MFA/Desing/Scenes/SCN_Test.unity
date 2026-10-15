@@ -5300,6 +5300,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PF_Player_Knight
       objectReference: {fileID: 0}
+    - target: {fileID: 6912836502094413285, guid: ac7b6a3d8bc8ae1459dd69b44d6ed3ba, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 330585546}
     - target: {fileID: 9089856653788202020, guid: ac7b6a3d8bc8ae1459dd69b44d6ed3ba, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4

@@ -33,6 +33,7 @@ namespace MFA.Character
 
             ctx.IdleState = new PlayerIdleState(ctx);
             ctx.MoveState = new PlayerMoveState(ctx);
+            ctx.RunState = new PlayerRunState(ctx);
 
             fsm.ChangeState(ctx.IdleState);
 

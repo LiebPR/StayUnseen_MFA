@@ -4,9 +4,6 @@
     using MFA.Core.FSM;
     using UnityEngine;
 
-    /// <summary>
-    /// Representa el estado de movimiento (Walk/Run) del personaje.
-    /// </summary>
     public class PlayerMoveState : IState
     {
         readonly PlayerContext ctx;
@@ -16,14 +13,11 @@
             this.ctx = ctx;
         }
 
-        public void Enter()
-        {
-            // Aquí puedes activar la animación de movimiento
-        }
+        public void Enter() { }
 
         public void Tick()
         {
-            // Si el input de movimiento cesa, regresamos al estado de Idle
+            // Si no hay input, volvemos a Idle
             if (ctx.Input.MoveDirection.sqrMagnitude <= 0.01f)
             {
                 ctx.FSM.ChangeState(ctx.IdleState);
@@ -35,16 +29,21 @@
             Vector2 moveInput = ctx.Input.MoveDirection;
             Vector3 moveDirection = new Vector3(moveInput.x, 0f, moveInput.y);
 
-            ctx.Physics.HandleMovement(moveDirection, Time.fixedDeltaTime);
+            // Determinamos si corre o camina en base al input actual (Sin cambios de estado en FSM innecesarios)
+            bool isRunning = ctx.Input.IsRunPressed;
+
+            float targetMaxSpeed = isRunning ? ctx.Settings.PhysicsSettings.MaxRunSpeed : ctx.Settings.PhysicsSettings.MaxSpeed;
+            float targetAccel = isRunning ? ctx.Settings.PhysicsSettings.RunAcceleration : ctx.Settings.PhysicsSettings.Acceleration;
+
+            // Aplicamos físicas usando la sobrecarga limpia
+            ctx.Physics.HandleMovement(moveDirection, targetMaxSpeed, targetAccel, Time.fixedDeltaTime);
             ctx.Physics.HandleRotation(moveDirection, Time.fixedDeltaTime);
 
             float currentSpeed = ctx.Physics.CurrentVelocity.magnitude;
 
-            // Mandamos la velocidad para el blend tree o la transición de walk
+            // Actualizamos parámetros del Animator de una sola pasada
             ctx.Animator.SetFloat(AnimationHashes.MoveSpeed, currentSpeed);
-
-            // Congelamos el flag de correr a false de momento para que se quede en Walking
-            ctx.Animator.SetBool(AnimationHashes.IsRuning, false);
+            ctx.Animator.SetBool(AnimationHashes.IsRuning, isRunning);
         }
 
         public void Exit()

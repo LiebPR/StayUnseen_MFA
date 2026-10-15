@@ -1,8 +1,9 @@
-using MFA.Core.FSM;
-
 namespace MFA.Character
 {
+    using MFA.Core.Animations;
+    using MFA.Core.FSM;
     using UnityEngine;
+
     public class PlayerIdleState : IState
     {
         readonly PlayerContext ctx;
@@ -12,11 +13,15 @@ namespace MFA.Character
             this.ctx = ctx;
         }
 
-        public void Enter(){}
+        public void Enter()
+        {
+            // Aseguramos que al entrar en Idle se limpien los flags del animator
+            ctx.Animator.SetFloat(AnimationHashes.MoveSpeed, 0f);
+            ctx.Animator.SetBool(AnimationHashes.IsRuning, false);
+        }
 
         public void Tick()
         {
-            //---- Move --------------------------------------
             if (ctx.Input.MoveDirection.sqrMagnitude > 0.01f)
             {
                 ctx.FSM.ChangeState(ctx.MoveState);
@@ -25,10 +30,9 @@ namespace MFA.Character
 
         public void FixedTick()
         {
-            // Aplicamos desaceleración para detener el Rigidbody suavemente
             ctx.Physics.HandleMovement(Vector3.zero, Time.fixedDeltaTime);
         }
 
-        public void Exit(){}
+        public void Exit() { }
     }
 }

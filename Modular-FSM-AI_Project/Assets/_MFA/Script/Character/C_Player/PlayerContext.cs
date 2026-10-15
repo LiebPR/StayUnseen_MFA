@@ -38,6 +38,7 @@ namespace MFA.Character
         //---- Instancias Unicas Estados -------------
         public IState IdleState { get; set; }
         public IState MoveState { get; set; }
+        public IState RunState { get; set; }
         #endregion
 
         /// <summary>

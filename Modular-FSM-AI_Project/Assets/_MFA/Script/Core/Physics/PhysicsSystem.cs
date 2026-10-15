@@ -4,7 +4,6 @@ namespace MFA.Core.Physics
 
     public class PhysicsSystem
     {
-        #region Fields
         readonly PhysicsSO settings;
         readonly Rigidbody rigidbody;
         readonly Transform cameraTransform;
@@ -13,36 +12,30 @@ namespace MFA.Core.Physics
         float currentSpeed;
 
         public Vector3 CurrentVelocity => currentVelocity;
-        #endregion
 
-        #region Construct
         public PhysicsSystem(PhysicsSO settings, Rigidbody rigidbody, Transform cameraTransform)
         {
             this.settings = settings;
             this.rigidbody = rigidbody;
             this.cameraTransform = cameraTransform;
         }
-        #endregion
 
-        #region API
-        public void HandleMovement(Vector3 inputDirection, float fixedDeltaTime)
+        // Método sobrecargado para soportar cualquier velocidad máxima y aceleración (DRY)
+        public void HandleMovement(Vector3 inputDirection, float maxSpeed, float acceleration, float fixedDeltaTime)
         {
-            // Adaptar el input a la perspectiva de la cámara del Dolly Track
             Vector3 moveDirection = GetCameraRelativeDirection(inputDirection);
 
-            // Cálculo de velocidad con inercia y control de inversión de giro
             if (moveDirection.sqrMagnitude > 0.01f)
             {
                 float dotProduct = Vector3.Dot(currentVelocity.normalized, moveDirection);
-                float currentAccel = settings.Acceleration;
+                float currentAccel = acceleration;
 
-                // Si el jugador frena en seco o gira 180 grados, aumentamos temporalmente la respuesta
                 if (dotProduct < -0.2f && currentSpeed > 0.5f)
                 {
                     currentAccel *= 1.8f;
                 }
 
-                currentSpeed = Mathf.MoveTowards(currentSpeed, settings.MaxSpeed, currentAccel * fixedDeltaTime);
+                currentSpeed = Mathf.MoveTowards(currentSpeed, maxSpeed, currentAccel * fixedDeltaTime);
                 currentVelocity = moveDirection.normalized * currentSpeed;
             }
             else
@@ -51,9 +44,14 @@ namespace MFA.Core.Physics
                 currentVelocity = currentVelocity.normalized * currentSpeed;
             }
 
-            // Aplicar velocidad horizontal manteniendo la vertical del Rigidbody (gravedad)
             Vector3 targetVelocity = new Vector3(currentVelocity.x, rigidbody.linearVelocity.y, currentVelocity.z);
             rigidbody.linearVelocity = targetVelocity;
+        }
+
+        // Mantenemos la firma original delegando a la nueva para mantener compatibilidad con el IdleState[cite: 1]
+        public void HandleMovement(Vector3 inputDirection, float fixedDeltaTime)
+        {
+            HandleMovement(inputDirection, settings.MaxSpeed, settings.Acceleration, fixedDeltaTime);
         }
 
         public void HandleRotation(Vector3 inputDirection, float fixedDeltaTime)
@@ -63,7 +61,6 @@ namespace MFA.Core.Physics
             if (moveDirection.sqrMagnitude > 0.01f)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-
                 Quaternion newRotation = Quaternion.Slerp(
                     rigidbody.rotation,
                     targetRotation,
@@ -78,12 +75,10 @@ namespace MFA.Core.Physics
         {
             if (cameraTransform == null) return input.normalized;
 
-            // Proyectar los ejes de la cámara sobre el plano horizontal (XZ)
             Vector3 camForward = Vector3.ProjectOnPlane(cameraTransform.forward, Vector3.up).normalized;
             Vector3 camRight = Vector3.ProjectOnPlane(cameraTransform.right, Vector3.up).normalized;
 
             return (camForward * input.z + camRight * input.x).normalized;
         }
-        #endregion
     }
 }

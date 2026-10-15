@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db5a66081212c98469aa88fbb399666f, type: 3}
   m_Name: SO_Knight_PhysicsSettings
   m_EditorClassIdentifier: MFA.Core::MFA.Core.Physics.PhysicsSO
-  <MaxSpeed>k__BackingField: 6
-  <Acceleration>k__BackingField: 20
-  <Deceleration>k__BackingField: 25
-  <RotationSpeed>k__BackingField: 15
+  <MaxSpeed>k__BackingField: 3
+  <Acceleration>k__BackingField: 10
+  <MaxRunSpeed>k__BackingField: 6
+  <RunAcceleration>k__BackingField: 8
+  <Deceleration>k__BackingField: 30
+  <RotationSpeed>k__BackingField: 7
