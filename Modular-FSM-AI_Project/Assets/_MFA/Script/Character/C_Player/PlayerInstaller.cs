@@ -11,6 +11,7 @@ namespace MFA.Character
         (
             Rigidbody rb,
             Transform cameraTransform,
+            Animator animator,
             CharacterSO settings
         )
         {
@@ -23,6 +24,7 @@ namespace MFA.Character
             ( 
                 rb,
                 cameraTransform,
+                animator,
                 settings,
                 fsm,
                 inputReader,

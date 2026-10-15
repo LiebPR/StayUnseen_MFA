@@ -1,5 +1,6 @@
 ﻿namespace MFA.Character
 {
+    using MFA.Core.Animations;
     using MFA.Core.FSM;
     using UnityEngine;
 
@@ -31,19 +32,25 @@
 
         public void FixedTick()
         {
-            // Vector2 a Vector3 (en el plano XZ). Nota: Vector3 es un struct (valor), 
-            // por lo que no genera basura en el Heap (Zero GC Allocations).
             Vector2 moveInput = ctx.Input.MoveDirection;
             Vector3 moveDirection = new Vector3(moveInput.x, 0f, moveInput.y);
 
-            // Delegamos el movimiento y la rotación al sistema físico[cite: 5]
             ctx.Physics.HandleMovement(moveDirection, Time.fixedDeltaTime);
             ctx.Physics.HandleRotation(moveDirection, Time.fixedDeltaTime);
+
+            float currentSpeed = ctx.Physics.CurrentVelocity.magnitude;
+
+            // Mandamos la velocidad para el blend tree o la transición de walk
+            ctx.Animator.SetFloat(AnimationHashes.MoveSpeed, currentSpeed);
+
+            // Congelamos el flag de correr a false de momento para que se quede en Walking
+            ctx.Animator.SetBool(AnimationHashes.IsRuning, false);
         }
 
         public void Exit()
         {
-            // Limpieza al abandonar el estado de movimiento
+            ctx.Animator.SetFloat(AnimationHashes.MoveSpeed, 0f);
+            ctx.Animator.SetBool(AnimationHashes.IsRuning, false);
         }
     }
 }

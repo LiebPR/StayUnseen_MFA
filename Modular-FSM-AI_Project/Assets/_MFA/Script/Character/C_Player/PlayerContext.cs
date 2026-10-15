@@ -8,6 +8,7 @@ namespace MFA.Character
     //---- MFA -------------------------
     using MFA.Core.FSM;
     using MFA.Core.Physics;
+    using MFA.Core.Animations;
     using MFA.Inputs;
     #endregion
 
@@ -23,6 +24,7 @@ namespace MFA.Character
         /// </summary>
         public Rigidbody Rigidbody { get; }
         public Transform CameraTransform { get; }
+        public Animator Animator { get; }
 
         //---- Systems ---------------------
         public StateMachine FSM { get; }
@@ -45,6 +47,7 @@ namespace MFA.Character
         (
             Rigidbody rigidbody,
             Transform cameraTransform,
+            Animator animator,
             CharacterSO settings,
             StateMachine fsm,
             InputReader input,
@@ -53,6 +56,7 @@ namespace MFA.Character
         {
             Rigidbody = rigidbody;
             CameraTransform = cameraTransform;
+            Animator = animator;
             Settings = settings;
             FSM = fsm;
             Input = input;

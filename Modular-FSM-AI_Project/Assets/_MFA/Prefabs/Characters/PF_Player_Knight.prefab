@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: MFA.Character::MFA.Character.PlayerController
   settings: {fileID: 11400000, guid: c71e7498233d1114bb9d0480be06f7ab, type: 2}
   cameraTransform: {fileID: 0}
+  animator: {fileID: 6163148243107626369}
 --- !u!54 &6623490119864458776
 Rigidbody:
   m_ObjectHideFlags: 0

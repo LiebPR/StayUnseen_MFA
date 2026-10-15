@@ -6,6 +6,7 @@ namespace MFA.Character
     {
         [SerializeField] CharacterSO settings;
         [SerializeField] Transform cameraTransform;
+        [SerializeField] Animator animator;
 
         #region References
         PlayerContext ctx;
@@ -27,7 +28,7 @@ namespace MFA.Character
 
             //---- Instanciamos el Installer y el CTX -------------
             PlayerInstaller installer = new PlayerInstaller();
-            ctx = installer.Install(rb, cameraTransform, settings);
+            ctx = installer.Install(rb, cameraTransform, animator, settings);
 
         }
 
