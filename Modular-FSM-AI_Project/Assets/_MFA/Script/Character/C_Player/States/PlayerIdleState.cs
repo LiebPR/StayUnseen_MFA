@@ -1,21 +1,29 @@
 namespace MFA.Character
 {
+    #region Usings
+    //---- Unity --------------
+    using UnityEngine;
+    //---- MFA ----------------
     using MFA.Core.Animations;
     using MFA.Core.FSM;
-    using UnityEngine;
+    #endregion
 
     public class PlayerIdleState : IState
     {
+        #region References
         readonly PlayerContext ctx;
+        #endregion
 
+        #region Construct
         public PlayerIdleState(PlayerContext ctx)
         {
             this.ctx = ctx;
         }
+        #endregion
 
+        #region IState Implementation
         public void Enter()
         {
-            // Aseguramos que al entrar en Idle se limpien los flags del animator
             ctx.Animator.SetFloat(AnimationHashes.MoveSpeed, 0f);
             ctx.Animator.SetBool(AnimationHashes.IsRuning, false);
         }
@@ -24,7 +32,24 @@ namespace MFA.Character
         {
             if (ctx.Input.MoveDirection.sqrMagnitude > 0.01f)
             {
-                ctx.FSM.ChangeState(ctx.MoveState);
+                //---- Move ----------------------------------------------------------
+                if (!ctx.Input.IsRunPressed)
+                {
+                    ctx.FSM.ChangeState(ctx.MoveState);
+                }
+
+                //---- Run -----------------------------------------------------------
+                if (ctx.Input.IsRunPressed)
+                {
+                    ctx.FSM.ChangeState(ctx.RunState);
+                }
+            }
+
+            //---- Interact ----------------------------------------------------------
+            if (ctx.Input.IsInteractPressed && ctx.Interaction.CurrentTarget != null)
+            {
+                ctx.FSM.ChangeState(ctx.InteractState);
+                return;
             }
         }
 
@@ -34,5 +59,6 @@ namespace MFA.Character
         }
 
         public void Exit() { }
+        #endregion
     }
 }

@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3674508950679327405}
+  - component: {fileID: 6628697789166776611}
+  - component: {fileID: 3669030828014134053}
   m_Layer: 0
   m_Name: PF_Trapdoor
   m_TagString: Untagged
@@ -32,6 +34,45 @@ Transform:
   - {fileID: 3569357984834399320}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6628697789166776611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1433989586731536190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eddbac02fc46a474d956028c26f2abdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MFA.Core::Game.Core.Interaction.Trapdoor
+  openEulerAngle: {x: -90, y: 0, z: 0}
+  openDelay: 0
+  openDuration: 0.5
+  closeDelay: 0
+  closeDuration: 0.5
+  isToggleable: 1
+--- !u!65 &3669030828014134053
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1433989586731536190}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.7437595, y: 1.6198561, z: 1.7602875}
+  m_Center: {x: -0.008264005, y: 0.10327175, z: -0.98341525}
 --- !u!1001 &3891762434003651507
 PrefabInstance:
   m_ObjectHideFlags: 0

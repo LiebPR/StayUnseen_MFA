@@ -1,6 +1,7 @@
 namespace MFA.Character
 {
     using MFA.Core.FSM;
+    using MFA.Core.Interaction;
     using MFA.Core.Physics;
     using MFA.Inputs;
     using UnityEngine;
@@ -20,6 +21,8 @@ namespace MFA.Character
 
             PhysicsSystem physics = new PhysicsSystem(settings.PhysicsSettings, rb, cameraTransform);
 
+            InteractionSystem interaction = new InteractionSystem(rb.transform, settings.InteractionSettings);
+
             PlayerContext ctx = new PlayerContext 
             ( 
                 rb,
@@ -28,12 +31,14 @@ namespace MFA.Character
                 settings,
                 fsm,
                 inputReader,
-                physics
+                physics,
+                interaction
             );
 
             ctx.IdleState = new PlayerIdleState(ctx);
             ctx.MoveState = new PlayerMoveState(ctx);
             ctx.RunState = new PlayerRunState(ctx);
+            ctx.InteractState = new PlayerInteractState(ctx);
 
             fsm.ChangeState(ctx.IdleState);
 

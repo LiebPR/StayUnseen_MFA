@@ -10,6 +10,7 @@ namespace MFA.Character
     using MFA.Core.Physics;
     using MFA.Core.Animations;
     using MFA.Inputs;
+    using MFA.Core.Interaction;
     #endregion
 
     /// <summary>
@@ -32,6 +33,8 @@ namespace MFA.Character
 
         public PhysicsSystem Physics {  get; }
 
+        public InteractionSystem Interaction { get; }
+
         //---- Settings ------------------------------
         public CharacterSO Settings { get; }
 
@@ -39,6 +42,7 @@ namespace MFA.Character
         public IState IdleState { get; set; }
         public IState MoveState { get; set; }
         public IState RunState { get; set; }
+        public IState InteractState { get; set; }
         #endregion
 
         /// <summary>
@@ -52,7 +56,8 @@ namespace MFA.Character
             CharacterSO settings,
             StateMachine fsm,
             InputReader input,
-            PhysicsSystem physics
+            PhysicsSystem physics,
+            InteractionSystem interaction
         )
         {
             Rigidbody = rigidbody;
@@ -62,6 +67,7 @@ namespace MFA.Character
             FSM = fsm;
             Input = input;
             Physics = physics;
+            Interaction = interaction;
         }
 
         /// <summary>

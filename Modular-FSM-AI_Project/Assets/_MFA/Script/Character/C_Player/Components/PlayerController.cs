@@ -1,5 +1,6 @@
 namespace MFA.Character
 {
+    using MFA.Core.Interaction;
     using UnityEngine;
 
     public class PlayerController : MonoBehaviour
@@ -34,7 +35,8 @@ namespace MFA.Character
 
         void Update()
         {
-            ctx.FSM.Update();        
+            ctx.FSM.Update();
+            ctx.Interaction.Tick();
         }
 
         void FixedUpdate()
@@ -46,5 +48,12 @@ namespace MFA.Character
         {
             ctx.Dispose();
         }
+
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            InteractionSystem.DrawGizmos(transform, settings.InteractionSettings);
+        }
+#endif
     }
 }

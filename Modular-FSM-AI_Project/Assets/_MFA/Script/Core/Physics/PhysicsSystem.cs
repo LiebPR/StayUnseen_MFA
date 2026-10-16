@@ -4,6 +4,7 @@ namespace MFA.Core.Physics
 
     public class PhysicsSystem
     {
+        #region Private Fields & Properties
         readonly PhysicsSO settings;
         readonly Rigidbody rigidbody;
         readonly Transform cameraTransform;
@@ -12,15 +13,19 @@ namespace MFA.Core.Physics
         float currentSpeed;
 
         public Vector3 CurrentVelocity => currentVelocity;
+        #endregion
 
+        #region Construct
         public PhysicsSystem(PhysicsSO settings, Rigidbody rigidbody, Transform cameraTransform)
         {
             this.settings = settings;
             this.rigidbody = rigidbody;
             this.cameraTransform = cameraTransform;
         }
+        #endregion
 
-        // Método sobrecargado para soportar cualquier velocidad máxima y aceleración (DRY)
+
+        #region Pubic API 
         public void HandleMovement(Vector3 inputDirection, float maxSpeed, float acceleration, float fixedDeltaTime)
         {
             Vector3 moveDirection = GetCameraRelativeDirection(inputDirection);
@@ -70,7 +75,9 @@ namespace MFA.Core.Physics
                 rigidbody.MoveRotation(newRotation);
             }
         }
+        #endregion
 
+        #region Utilities
         private Vector3 GetCameraRelativeDirection(Vector3 input)
         {
             if (cameraTransform == null) return input.normalized;
@@ -80,5 +87,6 @@ namespace MFA.Core.Physics
 
             return (camForward * input.z + camRight * input.x).normalized;
         }
+        #endregion
     }
 }

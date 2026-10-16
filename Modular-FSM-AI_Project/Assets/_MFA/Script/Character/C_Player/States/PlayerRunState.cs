@@ -1,18 +1,27 @@
 namespace MFA.Character
 {
+    #region Usings
+    //---- Unity --------------
+    using UnityEngine;
+    //---- MFA ----------------
     using MFA.Core.Animations;
     using MFA.Core.FSM;
-    using UnityEngine;
+    #endregion
 
     public class PlayerRunState : IState
     {
+        #region References
         readonly PlayerContext ctx;
+        #endregion
 
+        #region Construct
         public PlayerRunState(PlayerContext ctx)
         {
             this.ctx = ctx;
         }
+        #endregion
 
+        #region IState Implementation
         public void Enter()
         {
             ctx.Animator.SetBool(AnimationHashes.IsRuning, true);
@@ -20,16 +29,24 @@ namespace MFA.Character
 
         public void Tick()
         {
+            //---- Idle --------------------------------------------------------------
             if (ctx.Input.MoveDirection.sqrMagnitude <= 0.01f)
             {
                 ctx.FSM.ChangeState(ctx.IdleState);
                 return;
             }
 
-            // Si suelta el botón de correr pero sigue moviéndose, regresa a caminar
+            //---- Move --------------------------------------------------------------
             if (!ctx.Input.IsRunPressed)
             {
                 ctx.FSM.ChangeState(ctx.MoveState);
+            }
+
+            //---- Interact ----------------------------------------------------------
+            if (ctx.Input.IsInteractPressed && ctx.Interaction.CurrentTarget != null)
+            {
+                ctx.FSM.ChangeState(ctx.InteractState);
+                return;
             }
         }
 
@@ -38,7 +55,6 @@ namespace MFA.Character
             Vector2 moveInput = ctx.Input.MoveDirection;
             Vector3 moveDirection = new Vector3(moveInput.x, 0f, moveInput.y);
 
-            // Inyectamos las variables de velocidad de carrera del ScriptableObject
             ctx.Physics.HandleMovement(
                 moveDirection,
                 ctx.Settings.PhysicsSettings.MaxRunSpeed,
@@ -57,5 +73,6 @@ namespace MFA.Character
         {
             ctx.Animator.SetBool(AnimationHashes.IsRuning, false);
         }
+        #endregion
     }
 }

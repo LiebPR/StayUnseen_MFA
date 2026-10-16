@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: SO_Knight_CharacterSettings
   m_EditorClassIdentifier: MFA.Character::MFA.Character.CharacterSO
   PhysicsSettings: {fileID: 11400000, guid: 579e78d33c9f7304fac61b49284495a2, type: 2}
+  InteractionSettings: {fileID: 11400000, guid: 7f79d6a55a68b0d4d9809692f723fe82, type: 2}
